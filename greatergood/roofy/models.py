@@ -150,7 +150,7 @@ class Client(models.Model):
         return self.main_contact_first_name + " " + self.main_contact_last_name
 
 
-class SiteInformation(models.Model):
+class Project(models.Model):
   client = models.ForeignKey(Client, on_delete=models.CASCADE)
   project_name = models.CharField(max_length=200)
   sales_rep = models.CharField(max_length=200,choices=USER_CHOICES)
