@@ -1,21 +1,52 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_urls static admin_modify %}
+{% load static %}
+{% load render_table from django_tables2 %}
 
-{% block extrahead %}{{ block.super }}
-<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
-{{ media }}
+{% block content %}
+
+{% render_table notes %}
+
+
+<h1>Add Note</h1>
+
+
+<form action="{% url 'roofy:roofy_add_note' project_id %}" method="post">
+{% csrf_token %}
+
+<b>Note Type:</b>
+<select name='note_type'>
+  <option value="General">General</option>
+  <option value="Alerts">Alerts</option>
+  <option value="Appointment">Appointment</option>
+  <option value="Bills/Expenses">Bills/Expenses</option>
+  <option value="Call - Inbound">Call - Inbound</option>
+  <option value="Call - Outbound">Call - Outbound</option>
+  <option value="Contract">Contract</option>
+  <option value="Customer Complaint">Customer Complaint</option>
+  <option value="Customer Compliment">Customer Compliment</option>
+  <option value="Email - Inbound">Email - Inbound</option>
+  <option value="Email - Outbound">Email - Outbound</option>
+  <option value="Fax">Fax</option>
+  <option value="File/Photo">File/Photo</option>
+  <option value="Follow Up">Follow Up</option>
+  <option value="Invoices">Invoices</option>
+  <option value="Jet Stream">Jet Stream</option>
+  <option value="Job Progress Update">Job Progress Update</option>
+  <option value="Material Order">Material Order</option>
+  <option value="Other">Other</option>
+  <option value="Payment">Payment</option>
+  <option value="Payout">Payout</option>
+  <option value="Permit">Permit</option>
+  <option value="Proposals/Estimate">Proposals/Estimate</option>
+  <option value="Refunds">Refunds</option>
+  <option value="Task">Task</option>
+  <option value="Work Order">Work Order</option>
+  <option value="Work Flow"></option>
+
+</select>
+<br />
+<b>Note Text:</b><input type=text name=note_text size=100 />
+<br />
+<input type="submit" value="Add Note" />
+</form>
 {% endblock %}
-
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
-
-{% block coltype %}colM{% endblock %}
-
-
-
-{% if not is_popup %}
-{% block breadcrumbs %}
-<div class="breadcrumbs">
-<a href="{% url 'admin:index' %}">Notes</a>
-{% endblock %}
-{% endif %}
-

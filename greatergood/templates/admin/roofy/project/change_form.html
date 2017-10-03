@@ -24,9 +24,13 @@
 {% endif %}
 
 {% block content %}
-<h1>Main Menu</h1>
 
-<a href="{% url 'roofy:roofy_notes_test' project_id=original.id %}">Notes</a>
+
+{% if original %}
+<h1>Main Menu</h1>
+<a href="{% url 'roofy:roofy_notes_test' project_id=original.id %}" target=_blank>Notes<br />
+<img src="{% static 'roofy/images/note_icon.png' %}" height=50 width=50 /></a>
+{% endif %}
 
 <div id="content-main">
 

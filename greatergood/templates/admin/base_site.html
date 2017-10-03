@@ -1,9 +1,12 @@
 {% extends "admin/base.html" %}
+{% load static %}
+
 
 {% block title %}{{ title }} | Greater Good Admin{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}"> Greater Good Administration </a></h1>
+
+<h1 id="site-name"><img src="{% static 'roofy/images/roof_icon.png' %}" height=50 width=50 /><a href="{% url 'admin:index' %}"> Greater Good Administration </a></h1>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

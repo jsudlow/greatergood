@@ -105,7 +105,59 @@ ROOF_DAMAGE_TYPES = (
  ('Hail&Wind+Missing Shingles','Hail&Wind+Missing Shingles'),
   	)
 
+NOTE_TYPES = (
+  ('General','General'),
+  ('Alerts','Alerts'),
+  ('Appointment','Appointment'),
+  ('Bills/Expenses','Bills/Expenses'),
+  ('Call - Inbound','Call - Inbound'),
+  ('Call - Outbound','Call - Outbound'),
+  ('Contract','Contract'),
+  ('Customer Complaint','Customer Complaint'),
+  ('Customer Compliment','Customer Compliment'),
+  ('EagleView','EagleView'),
+  ('Email - Inbound','Email - Inbound'),
+  ('Email - Outbound','Email - Outbound'),
+  ('Fax','Fax'),
+  ('File/Photo','File/Photo'),
+  ('Follow Up','Follow Up'),
+  ('Invoices','Invoices'),
+  ('Jet Stream','Jet Stream'),
+  ('Job Progress Update','Job Progress Update'),
+  ('Material Order','Material Order'),
+  ('Other','Other'),
+  ('Payment','Payment'),
+  ('Payout','Payout'),
+  ('Permit','Permit'),
+  ('Proposal/Estimate','Proposal/Estimate'),
+  ('Refunds','Refunds'),
+  ('Task','Task'),
+  ('Work Order','Work Order'),
+  ('Workflow','Workflow'),
+	)
 
+ORIGIN_TYPES = (
+  ('User','User'),
+  ('System','System')
+
+	)
+
+PROJECT_STATUS_TYPES = (
+  ('Lead','Lead'),
+  ('Prospect','Prospect'),
+  ('Inspection/Demo','Inspection/Demo'),
+  ('Estimate/Proposal','Estimate/Proposal'),
+  ('Contract Signed','Contract Signed'),
+  ('Pre-Production','Pre-Production'),
+  ('Production','Production'),
+  ('Post-Production','Post-Production'),
+  ('Accounts Receivable','Accounts Receivable'),
+  ('Closed Pending','Closed Pending'),
+  ('Closed - Complete','Closed - Complete'),
+  ('Cancelled','Cancelled'),
+
+
+	)
 # Create your models here.
 teeps = ()
 user_list = my_choices = [
@@ -185,7 +237,17 @@ class Project(models.Model):
   pets_we_should_be_aware_of = models.BooleanField()
   locked_gate = models.BooleanField()
   garage_attached = models.BooleanField()
+  status = models.CharField(max_length=200,choices=PROJECT_STATUS_TYPES)
 
   def __str__(self):
     return self.site_address
-  
+
+class Note(models.Model):
+  project = models.ForeignKey(Project)
+  creator = models.CharField(max_length=200,choices=USER_CHOICES)
+  note_type = models.CharField(max_length=200,choices=NOTE_TYPES)
+  date = models.DateField()
+  note_text = models.TextField()
+  origin = models.CharField(max_length=200,choices=ORIGIN_TYPES)
+
+      
